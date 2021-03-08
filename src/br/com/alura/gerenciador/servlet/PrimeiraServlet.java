@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns="/PrimeiraServlet")
-public class FirstServlet extends HttpServlet{
+public class PrimeiraServlet extends HttpServlet{
 	
 	/**
 	 * 
