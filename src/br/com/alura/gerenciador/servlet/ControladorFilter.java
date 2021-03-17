@@ -2,10 +2,13 @@ package br.com.alura.gerenciador.servlet;
 
 import java.io.IOException;
 
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,26 +16,18 @@ import javax.servlet.http.HttpSession;
 import br.com.alura.gerenciador.acao.Acao;
 
 /**
- * Servlet implementation class EntradaServlet
+ * Servlet Filter implementation class AutorizacaoFilter
  */
-//@WebServlet("/entrada")
-public class EntradaServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+//@WebFilter("/entrada") ja esta configurado no web.xml
+public class ControladorFilter implements Filter {
 
-
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
+		
+		System.out.println("AutorizacaoFilter");
+		HttpServletRequest request = (HttpServletRequest) servletRequest;
+		HttpServletResponse response = (HttpServletResponse) servletResponse;
 		
 		String paramAcao = request.getParameter("acao");
-		
-		HttpSession sessao = request.getSession();
-		boolean usuarioLogado = (sessao.getAttribute("usuarioLogado")!=null);
-		boolean AcaoProtegida = paramAcao.equals("Login") || paramAcao.equals("LoginForm");
-		if(!AcaoProtegida && !usuarioLogado) {
-			response.sendRedirect("entrada?acao=LoginForm");
-			return;
-		}
-		
-		
 		String nomeClasse = "br.com.alura.gerenciador.acao." + paramAcao;
 		String nome;
 		
@@ -52,7 +47,6 @@ public class EntradaServlet extends HttpServlet {
 		else {
 			response.sendRedirect(tipoEndereco[1]);
 		}
-		}
 	}
-
+}
 

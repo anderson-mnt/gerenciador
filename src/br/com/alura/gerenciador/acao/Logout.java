@@ -16,7 +16,7 @@ public class Logout implements Acao {
 		HttpSession sessao = request.getSession();
 		
 		//sessao.removeAttribute("usuarioLogado"); remove somente essse atributo
-		sessao.invalidate();//invalida toda a sessao e detroi o cookie de todos os valores de session removendo da memoria
+		sessao.invalidate();//invalida toda a sessao e destroi o cookie de todos os valores de session removendo da memoria
 		return "redirect:entrada?acao=LoginForm";
 	}
 
